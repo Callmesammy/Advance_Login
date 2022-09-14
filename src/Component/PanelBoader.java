@@ -2,10 +2,12 @@
 package Component;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Path2D;
+import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -19,9 +21,16 @@ public class PanelBoader extends javax.swing.JLayeredPane {
     //for the animator 
     private float minate =1f;
     private boolean isLoading;
+    private final PanelLogin login;
+    private MigLayout layout;
     
     public PanelBoader() {
         initComponents();
+        setPreferredSize(new Dimension(340,450));
+        login = new PanelLogin();
+        layout = new MigLayout("inset 0", "[fill]", "[fill]");
+        setLayout(layout);
+        
         Color cl = new Color(14,212,100);
         setBackground(cl);
         setOpaque(false);
@@ -39,6 +48,7 @@ public class PanelBoader extends javax.swing.JLayeredPane {
         animate.setResolution(0);
         animate.setAcceleration(0.5f);
         animate.setDeceleration(0.5f);
+        add(login);
     }
     
     public void  start (){
