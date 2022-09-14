@@ -5,22 +5,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import org.jdesktop.animation.timing.Animator;
-import org.jdesktop.animation.timing.TimingTarget;
 
+//first Jpanel was added and coverted to JLayeredPane, beacuse some features including animations will be added
 
-public class panelSlide extends javax.swing.JLayeredPane {
+public class PanelBoader extends javax.swing.JLayeredPane {
 
-   private Animator animate;
-   private float minate;
-   private boolean isAction;
-   
-    public panelSlide() {
+    // in this segment we add the necessary components, Timingtarget and Animation ...
+    private Animator animate;
+    //for the animator 
+    private float minate =1f;
+    private boolean isLoading;
+    
+    public PanelBoader() {
         initComponents();
         setOpaque(false);
-        
     }
 
-  
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,32 +40,29 @@ public class panelSlide extends javax.swing.JLayeredPane {
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
+        super.paint(g); 
         Graphics2D g2 = (Graphics2D)g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
-       int width = getWidth();
-       int hight = getHeight();
-       float x = 0;
-       float y = 0;
-       int centerX = width/2;
         
-        
+        g2.dispose();
     }
 
-private double easeInBack(float x){
-  float c1 = 1.70158f;
-float c3 = c1 + 1;
-double v;
-v = c3 * x * x * x - c1 * x * x;
-return (float)v;
-}
+    private float easeInOutQuint(float x ){
+        //copied from easings.net for the animations 
+        double v;
+        v =x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2;
+        return (float)v;
+    }
+    
+     //copied from easings.net for the animations 
+    private float easeInOutCirc(float x){
+        double v;
+        v = x < 0.5
+  ? (1 - Math.sqrt(1 - Math.pow(2 * x, 2))) / 2
+  : (Math.sqrt(1 - Math.pow(-2 * x + 2, 2)) + 1) / 2;
+        return (float)v;
+    }
 
-private double  easeOutQuart(float x){
-    double v;
-    v= 1 - Math.pow(1 - x, 4);
-    return (float)v;
-}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
