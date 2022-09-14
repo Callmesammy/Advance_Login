@@ -1,6 +1,7 @@
 
 package Component;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -21,23 +22,27 @@ public class PanelBoader extends javax.swing.JLayeredPane {
     
     public PanelBoader() {
         initComponents();
+        Color cl = new Color(14,212,100);
+        setBackground(cl);
         setOpaque(false);
         TimingTarget target = new TimingTargetAdapter(){
             @Override
             public void timingEvent(float fraction) {
-                super.timingEvent(fraction); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                    minate = fraction;
+                    repaint();
             }
 
-            @Override
-            public void end() {
-                super.end(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-            }
+           
         };
         animate = new Animator(3000, target);
         // for smooth animations 
         animate.setResolution(0);
         animate.setAcceleration(0.5f);
         animate.setDeceleration(0.5f);
+    }
+    
+    public void  start (){
+        animate.start();
     }
 
    
@@ -62,6 +67,7 @@ public class PanelBoader extends javax.swing.JLayeredPane {
         super.paint(g); 
         Graphics2D g2 = (Graphics2D)g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getBackground());
     // here wee add the necessary Maths calculations 
         int width = getWidth();
         int height = getHeight();
@@ -72,7 +78,8 @@ public class PanelBoader extends javax.swing.JLayeredPane {
         Path2D.Float p = new Path2D.Float();
         p.moveTo(x, y);
         p.lineTo(x, height);
-        p.curveTo(x, y, easeInOutQuint(minate)*width, x, y, centerX);
+        p.curveTo(x, height, easeInOutQuint(minate)*width, centerX, x, y);
+        g2.fill(p);
         
         g2.dispose();
     }
