@@ -4,7 +4,10 @@ package Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Path2D;
 import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 //first Jpanel was added and coverted to JLayeredPane, beacuse some features including animations will be added
 
@@ -19,6 +22,22 @@ public class PanelBoader extends javax.swing.JLayeredPane {
     public PanelBoader() {
         initComponents();
         setOpaque(false);
+        TimingTarget target = new TimingTargetAdapter(){
+            @Override
+            public void timingEvent(float fraction) {
+                super.timingEvent(fraction); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+            @Override
+            public void end() {
+                super.end(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+        };
+        animate = new Animator(3000, target);
+        // for smooth animations 
+        animate.setResolution(0);
+        animate.setAcceleration(0.5f);
+        animate.setDeceleration(0.5f);
     }
 
    
@@ -43,6 +62,17 @@ public class PanelBoader extends javax.swing.JLayeredPane {
         super.paint(g); 
         Graphics2D g2 = (Graphics2D)g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    // here wee add the necessary Maths calculations 
+        int width = getWidth();
+        int height = getHeight();
+        float x = easeInOutCirc(minate)*width;
+        float y =0;
+        int centerX = width/2;
+    // here we use Path2D to add the calculations 
+        Path2D.Float p = new Path2D.Float();
+        p.moveTo(x, y);
+        p.lineTo(x, height);
+        p.curveTo(x, y, easeInOutQuint(minate)*width, x, y, centerX);
         
         g2.dispose();
     }
