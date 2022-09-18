@@ -16,6 +16,7 @@ public class Panel_Slider extends javax.swing.JLayeredPane {
     private final Animator animator;
     private float minate = 1f;
     private boolean isLoading;
+    private final Panel_Login login;
     
     public Panel_Slider() {
         initComponents();
