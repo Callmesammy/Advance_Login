@@ -7,13 +7,38 @@ import java.awt.geom.Path2D;
 
 public class PanelSlider extends javax.swing.JLayeredPane {
 
+    private float minate =1f;
+    private boolean isLoading;
     
     public PanelSlider() {
         initComponents();
         setOpaque(false);
     }
 
+    private float easeOutBounce(float x){
+    float n1 = 7.5625f;
+    float d1 = 2.75f;
+
+    double v;
+    if (x < 1 / d1) {
+        v =  n1 * x * x;
+    } else if (x < 2 / d1) {
+        v = n1 * (x -= 1.5 / d1) * x + 0.75;
+    } else if (x < 2.5 / d1) {
+        v = n1 * (x -= 2.25 / d1) * x + 0.9375;
+    } else {
+        v = n1 * (x -= 2.625 / d1) * x + 0.984375;
+}
+    return (float)v;
+    }
    
+    private float easeInOutBounce(float x){
+        double v;
+        v =  x < 0.5
+  ? (1 - easeOutBounce(1 - 2 * x)) / 2
+  : (1 + easeOutBounce(2 * x - 1)) / 2;
+        return (float)v;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
