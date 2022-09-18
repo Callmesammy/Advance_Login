@@ -2,13 +2,18 @@
 package advance_login;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
+
 
 public class Main extends javax.swing.JFrame {
 
     
     public Main() {
         initComponents();
-        getContentPane().setBackground(new Color(255,255,255));
+        getContentPane().setBackground(new Color(255,255,255)); 
+        setIconImage(new ImageIcon(getClass().getResource("/image/icon/parrot.jpg")).getImage());
+        setTitle("Login page");
+        
         
     }
 
@@ -34,9 +39,7 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
