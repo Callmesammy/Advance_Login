@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Path2D;
+import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
@@ -17,10 +18,14 @@ public class Panel_Slider extends javax.swing.JLayeredPane {
     private float minate = 1f;
     private boolean isLoading;
     private final Panel_Login login;
+    private final MigLayout layout;
     
     public Panel_Slider() {
         initComponents();
-        Color cl = new Color(142,100,141);
+        layout = new MigLayout("inset 0", "[fill]", "[fill]");
+        login = new Panel_Login();
+        setLayout(layout);
+        Color cl = new Color(51,0,255);
         setBackground(cl);
         TimingTarget target = new TimingTargetAdapter(){
             @Override
@@ -34,6 +39,7 @@ public class Panel_Slider extends javax.swing.JLayeredPane {
         animator.setResolution(0);
         animator.setAcceleration(0.5f);
         animator.setDeceleration(0.5f);
+        add(login);
     }
 
     public void start(boolean  show){
